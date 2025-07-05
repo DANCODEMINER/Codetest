@@ -58,6 +58,34 @@
   </div>
       </form>
 
+      <form id="pin-form" style="display: none;" onsubmit="event.preventDefault(); setUserPin();">
+  <h2>Set Your 4-Digit PIN</h2>
+
+  <!-- First PIN -->
+  <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 1rem;">
+    <input type="text" maxlength="1" class="pin-input" id="pin1" required />
+    <input type="text" maxlength="1" class="pin-input" id="pin2" required />
+    <input type="text" maxlength="1" class="pin-input" id="pin3" required />
+    <input type="text" maxlength="1" class="pin-input" id="pin4" required />
+  </div>
+
+  <!-- Confirm PIN -->
+  <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 1rem;">
+    <input type="text" maxlength="1" class="pin-input" id="conf1" required />
+    <input type="text" maxlength="1" class="pin-input" id="conf2" required />
+    <input type="text" maxlength="1" class="pin-input" id="conf3" required />
+    <input type="text" maxlength="1" class="pin-input" id="conf4" required />
+  </div>
+
+  <input type="hidden" id="pin-email" />
+
+  <button class="btn" type="submit">Create Account</button>
+
+  <div class="form-links">
+    <a href="#" onclick="showForm('login')">Back to Login</a>
+  </div>
+      </form>
+
       <form id="forgot-form" style="display: none;">
         <h2>Reset PIN</h2>
         <input type="email" placeholder="Email" required />
