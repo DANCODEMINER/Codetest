@@ -131,17 +131,51 @@ async function loginUser() {
   const email = document.getElementById("login-email").value.trim();
   const password = document.getElementById("login-password").value.trim();
 
-  const payload = {
-    email: email,
-    password: password
-  };
+  const payload = { email, password };
 
   try {
     const res = await fetch("https://danoski-backend.onrender.com/user/login", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      // Save email temporarily for PIN verification
+      localStorage.setItem("loginEmail", email);
+
+      alert("✅ Login successful. Please verify your PIN.");
+      showForm("pin-verify"); // Show PIN form
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    alert("⚠️ Failed to connect to server.");
+    console.error(err);
+  }
+}
+
+async function verifyLoginPin() {
+  const email = localStorage.getItem("loginEmail");
+
+  const pin = document.getElementById("pin1").value +
+              document.getElementById("pin2").value +
+              document.getElementById("pin3").value +
+              document.getElementById("pin4").value;
+
+  if (pin.length !== 4) {
+    alert("⚠️ Please enter your 4-digit PIN.");
+    return;
+  }
+
+  const payload = { email, pin };
+
+  try {
+    const res = await fetch("https://danoski-backend.onrender.com/user/verify-login-pin", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
 
@@ -155,10 +189,11 @@ async function loginUser() {
       alert("❌ " + data.error);
     }
   } catch (err) {
-    alert("⚠️ Could not connect to server.");
+    alert("⚠️ Failed to verify PIN.");
     console.error(err);
   }
 }
+
 
 // Show the selected form (login/register/forgot)
 function showForm(formType) {
