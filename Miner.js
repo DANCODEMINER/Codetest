@@ -40,6 +40,39 @@ async function signupUser() {
   }
 }
 
+async function verifyOtp() {
+  const email = document.getElementById("otp-email").value.trim();
+  const otp = document.getElementById("otp-code").value.trim();
+
+  const payload = {
+    email: email,
+    otp: otp
+  };
+
+  try {
+    const res = await fetch("https://danoski-backend.onrender.com/user/verify-otp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("✅ " + data.message);
+      // Optionally, move to set PIN or login page
+      showForm("login");
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    alert("⚠️ Failed to verify OTP.");
+    console.error(err);
+  }
+}
+
 // Show the selected form (login/register/forgot)
 function showForm(formType) {
   document.getElementById("login-form").style.display = formType === "login" ? "block" : "none";
