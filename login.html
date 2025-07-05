@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adchain Miner - Auth</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f7f8fc;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #f7931a;
+    }
+    .menu-btn {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      flex-direction: column;
+      padding: 1rem;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+    .menu a {
+      padding: 0.5rem 0;
+      text-decoration: none;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 2rem auto;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .form-container h2 {
+      text-align: center;
+      color: #f7931a;
+    }
+    input[type="email"], input[type="password"], input[type="text"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #8b5e00;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    .form-links {
+      text-align: center;
+      margin-top: 1rem;
+    }
+    .form-links a {
+      color: #f7931a;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+    <div class="logo">Adchain Miner</div>
+  </div>  <div id="menu" class="menu">
+    <a href="#" onclick="showForm('login')">🚪 Login</a>
+    <a href="#" onclick="showForm('register')">👤 Register</a>
+    <a href="#" onclick="showForm('forgot')">🔒 Forgot Password</a>
+  </div>  <div class="form-container">
+    <form id="login-form">
+      <h2>Login to Dashboard</h2>
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button class="btn">LOG IN</button>
+      <div class="form-links">
+        <a href="#" onclick="showForm('register')">Create Account</a>
+        <a href="#" onclick="showForm('forgot')">Forgot Password?</a>
+      </div>
+    </form><form id="register-form" style="display: none;">
+  <h2>Create Account</h2>
+  <input type="text" placeholder="Full Name" required />
+  <input type="text" placeholder="Country" required />
+  <input type="email" placeholder="Email" required />
+  <input type="password" placeholder="Password" required />
+  <input type="text" placeholder="Set 4-digit PIN" required />
+  <button class="btn">SIGN UP</button>
+  <div class="form-links">
+    <a href="#" onclick="showForm('login')">Back to Login</a>
+  </div>
+</form>
+
+<form id="forgot-form" style="display: none;">
+  <h2>Reset PIN</h2>
+  <input type="email" placeholder="Email" required />
+  <input type="text" placeholder="Enter OTP" required />
+  <input type="text" placeholder="New PIN" required />
+  <button class="btn">RESET</button>
+  <div class="form-links">
+    <a href="#" onclick="showForm('login')">Back to Login</a>
+  </div>
+</form>
+
+  </div>  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("menu");
+      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    function showForm(formType) {
+      document.getElementById("login-form").style.display = formType === "login" ? "block" : "none";
+      document.getElementById("register-form").style.display = formType === "register" ? "block" : "none";
+      document.getElementById("forgot-form").style.display = formType === "forgot" ? "block" : "none";
+    }
+  </script></body>
+</html>
