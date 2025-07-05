@@ -12,7 +12,8 @@ async function signupUser() {
   const email = document.getElementById("signup-email").value.trim();
   const password = document.getElementById("signup-password").value.trim();
 
-  const payload = {
+  // Save to global object
+  signupData = {
     full_name: fullName,
     country: country,
     email: email,
@@ -25,14 +26,19 @@ async function signupUser() {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        full_name: fullName,
+        country: country,
+        email: email,
+        password: password
+      })
     });
 
     const data = await res.json();
 
     if (res.ok) {
       alert("✅ " + data.message);
-      // You can show OTP field here if needed
+      showForm("otp"); // show OTP form
     } else {
       alert("❌ " + data.error);
     }
@@ -46,26 +52,21 @@ async function verifyOtp() {
   const email = document.getElementById("otp-email").value.trim();
   const otp = document.getElementById("otp-code").value.trim();
 
-  const payload = {
-    email: email,
-    otp: otp
-  };
-
   try {
     const res = await fetch("https://danoski-backend.onrender.com/user/verify-otp", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ email, otp })
     });
 
     const data = await res.json();
 
     if (res.ok) {
       alert("✅ " + data.message);
-      // Optionally, move to set PIN or login page
-      showForm("login");
+      showForm("setpin");
+      document.getElementById("pin-email").value = email; // Pre-fill for set pin
     } else {
       alert("❌ " + data.error);
     }
@@ -99,12 +100,12 @@ async function setUserPin() {
   }
 
   const payload = {
-    email: email,
+    ...signupData,
     pin: pin
   };
 
   try {
-    const res = await fetch("https://danoski-backend.onrender.com/user/set-pin", {
+    const res = await fetch("https://danoski-backend.onrender.com/user/create-account", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -121,7 +122,7 @@ async function setUserPin() {
       alert("❌ " + data.error);
     }
   } catch (err) {
-    alert("⚠️ Failed to set PIN.");
+    alert("⚠️ Failed to create account.");
     console.error(err);
   }
 }
