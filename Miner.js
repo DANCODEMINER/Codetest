@@ -181,3 +181,11 @@ document.getElementById('forgot-form').addEventListener('submit', function(e) {
   // TODO: connect forgot password to backend here
   alert('Forgot password functionality to be implemented');
 });
+
+document.querySelectorAll('.pin-input').forEach((input, index, inputs) => {
+  input.addEventListener('input', () => {
+    if (input.value.length === 1 && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+  });
+});
