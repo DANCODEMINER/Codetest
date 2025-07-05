@@ -4,6 +4,8 @@ function toggleMenu() {
   menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
 
+let signupData = {};
+
 async function signupUser() {
   const fullName = document.getElementById("signup-name").value.trim();
   const country = document.getElementById("signup-country").value.trim();
