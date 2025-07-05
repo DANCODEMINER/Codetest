@@ -73,6 +73,57 @@ async function verifyOtp() {
   }
 }
 
+async function setUserPin() {
+  const email = document.getElementById("pin-email").value.trim();
+
+  const pin = document.getElementById("pin1").value +
+              document.getElementById("pin2").value +
+              document.getElementById("pin3").value +
+              document.getElementById("pin4").value;
+
+  const confirmPin = document.getElementById("conf1").value +
+                     document.getElementById("conf2").value +
+                     document.getElementById("conf3").value +
+                     document.getElementById("conf4").value;
+
+  if (pin.length !== 4 || confirmPin.length !== 4) {
+    alert("⚠️ Please enter 4 digits in both PIN fields.");
+    return;
+  }
+
+  if (pin !== confirmPin) {
+    alert("❌ PIN mismatch. Please try again.");
+    return;
+  }
+
+  const payload = {
+    email: email,
+    pin: pin
+  };
+
+  try {
+    const res = await fetch("https://danoski-backend.onrender.com/user/set-pin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("✅ " + data.message);
+      showForm("login");
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    alert("⚠️ Failed to set PIN.");
+    console.error(err);
+  }
+}
+
 // Show the selected form (login/register/forgot)
 function showForm(formType) {
   document.getElementById("login-form").style.display = formType === "login" ? "block" : "none";
