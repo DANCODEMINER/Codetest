@@ -25,15 +25,15 @@
       <a href="#" onclick="showForm('forgot')">🔒 Forgot Password</a>
     </div>
     <div class="form-container">
-      <form id="login-form">
-        <h2>Login to Dashboard</h2>
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <button class="btn" type="submit">LOG IN</button>
-        <div class="form-links">
-          <a href="#" onclick="showForm('register')">Create Account</a>
-          <a href="#" onclick="showForm('forgot')">Forgot Password?</a>
-        </div>
+      <form id="login-form" onsubmit="event.preventDefault(); loginUser();">
+  <h2>Login to Dashboard</h2>
+  <input type="email" id="login-email" placeholder="Email" required />
+  <input type="password" id="login-password" placeholder="Password" required />
+  <button class="btn" type="submit">LOG IN</button>
+  <div class="form-links">
+    <a href="#" onclick="showForm('register')">Create Account</a>
+    <a href="#" onclick="showForm('forgot')">Forgot Password?</a>
+  </div>
       </form>
       <form id="register-form" style="display: none;" onsubmit="event.preventDefault(); signupUser();">
   <h2>Create Account</h2>
