@@ -48,6 +48,16 @@
   </div>
       </form>
 
+      <form id="otp-form" onsubmit="event.preventDefault(); verifyOtp();" style="display: none;">
+  <h2>Verify OTP</h2>
+  <input type="email" id="otp-email" placeholder="Email" required />
+  <input type="text" id="otp-code" placeholder="Enter OTP" required />
+  <button class="btn" type="submit">VERIFY</button>
+  <div class="form-links">
+    <a href="#" onclick="showForm('login')">Back to Login</a>
+  </div>
+      </form>
+
       <form id="forgot-form" style="display: none;">
         <h2>Reset PIN</h2>
         <input type="email" placeholder="Email" required />
