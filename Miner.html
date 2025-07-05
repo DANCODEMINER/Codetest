@@ -35,17 +35,17 @@
           <a href="#" onclick="showForm('forgot')">Forgot Password?</a>
         </div>
       </form>
-      <form id="register-form" style="display: none;">
-        <h2>Create Account</h2>
-        <input type="text" placeholder="Full Name" required />
-        <input type="text" placeholder="Country" required />
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
-        <input type="text" placeholder="Set 4-digit PIN" required />
-        <button class="btn" type="submit">SIGN UP</button>
-        <div class="form-links">
-          <a href="#" onclick="showForm('login')">Back to Login</a>
-        </div>
+      <form id="register-form" style="display: none;" onsubmit="event.preventDefault(); signupUser();">
+  <h2>Create Account</h2>
+  <input type="text" id="signup-fullname" placeholder="Full Name" required />
+  <input type="text" id="signup-country" placeholder="Country" required />
+  <input type="email" id="signup-email" placeholder="Email" required />
+  <input type="password" id="signup-password" placeholder="Password" required />
+  <input type="text" id="signup-pin" placeholder="Set 4-digit PIN" required />
+  <button class="btn" type="submit">SIGN UP</button>
+  <div class="form-links">
+    <a href="#" onclick="showForm('login')">Back to Login</a>
+  </div>
       </form>
 
       <form id="forgot-form" style="display: none;">
