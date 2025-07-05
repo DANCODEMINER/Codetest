@@ -64,6 +64,17 @@
       right: 0;
     }
 
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 15;
+    }
+
     .sidebar h3 {
       margin-bottom: 20px;
       color: #f7931a;
@@ -194,6 +205,8 @@
 </head>
 <body>
 
+  <div id="overlay" onclick="toggleSidebar()"></div>
+
   <header>
     <h1>Adchain Miner</h1>
     <button class="menu-btn" onclick="toggleSidebar()">☰</button>
@@ -268,7 +281,6 @@
     <!-- Leaderboard -->
     <div class="logs">
       <h3>📈 Leaderboard</h3>
-
       <h4 style="color: #f7931a;">🏆 Top Miners</h4>
       <table>
         <thead>
@@ -313,7 +325,10 @@
     }, 1000);
 
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("active");
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+      const isOpen = sidebar.classList.toggle("active");
+      overlay.style.display = isOpen ? "block" : "none";
     }
 
     function logout() {
