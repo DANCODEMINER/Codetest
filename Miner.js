@@ -127,6 +127,39 @@ async function setUserPin() {
   }
 }
 
+async function loginUser() {
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
+
+  const payload = {
+    email: email,
+    password: password
+  };
+
+  try {
+    const res = await fetch("https://danoski-backend.onrender.com/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("✅ " + data.message);
+      document.getElementById("login-page").style.display = "none";
+      document.getElementById("dashboard-page").style.display = "block";
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    alert("⚠️ Could not connect to server.");
+    console.error(err);
+  }
+}
+
 // Show the selected form (login/register/forgot)
 function showForm(formType) {
   document.getElementById("login-form").style.display = formType === "login" ? "block" : "none";
