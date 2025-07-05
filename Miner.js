@@ -4,6 +4,42 @@ function toggleMenu() {
   menu.style.display = menu.style.display === "flex" ? "none" : "flex";
 }
 
+async function signupUser() {
+  const fullName = document.getElementById("signup-name").value.trim();
+  const country = document.getElementById("signup-country").value.trim();
+  const email = document.getElementById("signup-email").value.trim();
+  const password = document.getElementById("signup-password").value.trim();
+
+  const payload = {
+    full_name: fullName,
+    country: country,
+    email: email,
+    password: password
+  };
+
+  try {
+    const res = await fetch("https://danoski-backend.onrender.com/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      alert("✅ " + data.message);
+      // You can show OTP field here if needed
+    } else {
+      alert("❌ " + data.error);
+    }
+  } catch (err) {
+    alert("⚠️ Failed to connect to server.");
+    console.error(err);
+  }
+}
+
 // Show the selected form (login/register/forgot)
 function showForm(formType) {
   document.getElementById("login-form").style.display = formType === "login" ? "block" : "none";
