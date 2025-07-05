@@ -306,6 +306,23 @@ def user_login():
 
     return jsonify({"error": "Invalid credentials."}), 401
 
+@app.route("/user/verify-login-pin", methods=["POST"])
+def verify_login_pin():
+    data = request.json
+    email = data.get("email")
+    pin_input = data.get("pin")
+
+    conn = get_db()
+    cur = conn.cursor()
+    cur.execute("SELECT pin FROM users WHERE email = %s", (email,))
+    user = cur.fetchone()
+    cur.close()
+    conn.close()
+
+    if user and user[0] == pin_input:
+        return jsonify({"message": "PIN verified. Welcome!"})
+    return jsonify({"error": "Invalid PIN."}), 401
+
 # === USER FORGOT PASSWORD & RESET PIN ===
 
 @app.route("/user/forgot-password", methods=["POST"])
